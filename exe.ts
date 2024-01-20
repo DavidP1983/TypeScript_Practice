@@ -166,3 +166,126 @@ function printReport(data: ITotalWarehouse): string {
 // }
 
 console.log(printReport(totalData));
+
+
+
+
+// 4. Exe Enum & Interface & Unknown & typeof_queries
+
+enum TypesOfMedia {
+	VIDEO = 'video',
+	AUDIO = 'audio'
+}
+
+enum FormatsOfMedia {
+	MP4 = '.mp4',
+	MOV = ' .mov',
+	MKV = '.mkv',
+	FLV = '.flv',
+	WEBM = '.webM'
+}
+
+
+interface IMedia {
+	name: string;
+	type: TypesOfMedia;
+	format: FormatsOfMedia;
+	subtitles?: string;
+	// subtitles: string | undefined;
+	// marks?: unknown & (string | number)[]; 
+	marks?: unknown;
+}
+
+function playMedia(
+	{ name, type, format, subtitles, marks }: IMedia = {
+		name: "example",
+		type:  TypesOfMedia.VIDEO,
+		format: FormatsOfMedia.MP4,
+
+	}
+): string {
+	let marksLog: string;
+	if(Array.isArray(marks)) {
+		marksLog = marks.reduce((acc, prev) =>` ${acc}, ${prev}`);
+	}else if(typeof marks === 'string') {
+		 marksLog = marks;
+	}else {
+		 marksLog = "Unsupported type of marks";
+	}
+
+	console.log(`Media ${name}${format} is ${type}
+    Marks: ${marksLog}
+    Subtitles: ${subtitles ?? "none"}`);
+
+	return "Media started";
+}
+
+playMedia({
+	name: "WoW",
+	format: FormatsOfMedia.MOV,
+	type: TypesOfMedia.VIDEO,
+	subtitles: "hmhmhm hmhmhm doh",
+	marks: ["4:30", "5:40"],
+});
+
+
+
+//--- interface ---//
+
+// const media = {
+// 	name: "WoW",
+// 	type: TypesOfMedia.VIDEO,
+// 	format: FormatsOfMedia.MP4,
+// 	subtitles: "hmhmhm hmhmhm doh",
+// 	marks: ["4:30", "5:40"],
+// }
+
+// function playMedia({name, type, format, subtitles, marks}: IMedia): string {
+// 	let marksLog: string;
+// 	if(Array.isArray(marks)) {
+// 		marksLog = marks.join(', ');
+// 	}else if(typeof marks === 'string') {
+// 		marksLog = marks;
+// 	}else {
+// 		marksLog = "Unsupported type of marks";
+// 	}
+// 	console.log(`Media ${name}${format} is ${type}
+//                  Marks: ${marksLog}
+//     			 Subtitles: ${subtitles ?? "none"}`);
+
+
+// 	return "Media started";
+// }
+
+// playMedia(media);
+
+
+
+//--- Typeof_queries ---//
+
+// const media = {
+// 	name: "WoW",
+// 	type: TypesOfMedia.VIDEO,
+// 	format: FormatsOfMedia.MP4,
+// 	subtitles: "hmhmhm hmhmhm doh",
+// 	marks: ["4:30", "5:40"],
+// }
+
+// function playMedia({name, type, format, subtitles, marks}: typeof media): string {
+// 	let marksLog: string;
+// 	if(Array.isArray(marks)) {
+// 		marksLog = marks.join(', ');
+// 	}else if(typeof marks === 'string') {
+// 		marksLog = marks;
+// 	}else {
+// 		marksLog = "Unsupported type of marks";
+// 	}
+// 	console.log(`Media ${name}${format} is ${type}
+//                  Marks: ${marksLog}
+//     			 Subtitles: ${subtitles ?? "none"}`);
+
+
+// 	return "Media started";
+// }
+
+// playMedia(media);
