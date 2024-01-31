@@ -1,4 +1,4 @@
-// 1.Exe vatiables type
+// --- 1.Exe vatiables type --- //
 
 const currRate: string = "1.05";
 
@@ -26,7 +26,7 @@ transferEurToUsd(true, 500, 1.05);
 
 
 
-// 2.Exe object and array
+// --- 2.Exe object and array --- //
 
 const electricityUserData = {
 	readings: 95,
@@ -83,7 +83,7 @@ console.log(sendInvoice(monthPayments, electricityUserData, waterUserData));
 
 
 
-// 3.Exe Type & interface
+// --- 3.Exe Type & interface --- //
 
 // структура данных склада с одеждой
 type TPropValues = "empty" | number;
@@ -170,7 +170,7 @@ console.log(printReport(totalData));
 
 
 
-// 4. Exe Enum & Interface & Unknown & typeof_queries
+// --- 4. Exe Enum & Interface & Unknown & typeof_queries --- //
 
 enum TypesOfMedia {
 	VIDEO = 'video',
@@ -289,3 +289,83 @@ playMedia({
 // }
 
 // playMedia(media);
+
+
+
+// --- 5. Exe Type_Guard & correct_interfaces --- //
+
+type TAnimal = 'cat' | 'dog' | 'bird';
+
+// Request
+interface IAnimalInfo {
+    animal: TAnimal;
+    breed: string;
+    sterilized?: string;
+}
+
+// Response #1
+//  {
+//     status: 'available';
+//     data: {
+//         animal: TAnimal;
+//         breed: string;
+//         sterilized?: string;
+//         location: string;
+//         age?: number;
+//     }
+// }
+enum Status {
+	Available = "available",
+	NotAvailable = "not available"
+ }
+
+
+// DRY
+interface AvailableAnimalData extends IAnimalInfo {
+	location: string;
+	age?: number;
+}
+
+interface AvailableResponse {
+	status: Status.Available;
+	data: AvailableAnimalData
+}
+
+// Response #2
+// {
+//     status: 'not available',
+//     data: {
+//         message: string,
+//         nextUpdateIn: Date
+//     }
+// }
+interface NotAvailableAnimalData {
+	message: string;
+	nextUpdateIn: Date;
+}
+
+interface NotAvailableResponse {
+    status: Status.NotAvailable;
+    data: NotAvailableAnimalData;
+}
+
+type Resalt = AvailableResponse | NotAvailableResponse;
+
+function isAvailable(availableAnimal: Resalt): availableAnimal is AvailableResponse {
+	if(availableAnimal.status === Status.Available) {
+		return true;
+	}else {
+		return false;
+	}
+}
+
+
+function checkAnimalData(animal: Resalt): string | AvailableAnimalData {
+	if (isAvailable(animal)) {
+		// Заменить условие!
+		return animal.data;
+	} else {
+		return `${animal.data}, you can try in ${animal.data.nextUpdateIn}`;
+	}
+}
+

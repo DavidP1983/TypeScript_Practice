@@ -1,4 +1,4 @@
-// 1.Exe vatiables type
+// --- 1.Exe vatiables type --- //
 var currRate = "1.05";
 var fetchCurr = function (response) {
     try {
@@ -20,7 +20,7 @@ function transferEurToUsd(available, amount, commission) {
     }
 }
 transferEurToUsd(true, 500, 1.05);
-// 2.Exe object and array
+// --- 2.Exe object and array --- //
 var electricityUserData = {
     readings: 95,
     units: "kWt",
@@ -93,3 +93,76 @@ function printReport(data) {
 // 	return "Everything fine";
 // }
 console.log(printReport(totalData));
+// --- 4. Exe Enum & Interface & Unknown & typeof_queries --- //
+var TypesOfMedia;
+(function (TypesOfMedia) {
+    TypesOfMedia["VIDEO"] = "video";
+    TypesOfMedia["AUDIO"] = "audio";
+})(TypesOfMedia || (TypesOfMedia = {}));
+var FormatsOfMedia;
+(function (FormatsOfMedia) {
+    FormatsOfMedia["MP4"] = ".mp4";
+    FormatsOfMedia["MOV"] = " .mov";
+    FormatsOfMedia["MKV"] = ".mkv";
+    FormatsOfMedia["FLV"] = ".flv";
+    FormatsOfMedia["WEBM"] = ".webM";
+})(FormatsOfMedia || (FormatsOfMedia = {}));
+function playMedia(_a) {
+    var _b = _a === void 0 ? {
+        name: "example",
+        type: TypesOfMedia.VIDEO,
+        format: FormatsOfMedia.MP4,
+    } : _a, name = _b.name, type = _b.type, format = _b.format, subtitles = _b.subtitles, marks = _b.marks;
+    var marksLog;
+    if (Array.isArray(marks)) {
+        marksLog = marks.reduce(function (acc, prev) { return " ".concat(acc, ", ").concat(prev); });
+    }
+    else if (typeof marks === 'string') {
+        marksLog = marks;
+    }
+    else {
+        marksLog = "Unsupported type of marks";
+    }
+    console.log("Media ".concat(name).concat(format, " is ").concat(type, "\n    Marks: ").concat(marksLog, "\n    Subtitles: ").concat(subtitles !== null && subtitles !== void 0 ? subtitles : "none"));
+    return "Media started";
+}
+playMedia({
+    name: "WoW",
+    format: FormatsOfMedia.MOV,
+    type: TypesOfMedia.VIDEO,
+    subtitles: "hmhmhm hmhmhm doh",
+    marks: ["4:30", "5:40"],
+});
+// Response #1
+//  {
+//     status: 'available';
+//     data: {
+//         animal: TAnimal;
+//         breed: string;
+//         sterilized?: string;
+//         location: string;
+//         age?: number;
+//     }
+// }
+var Status;
+(function (Status) {
+    Status["Available"] = "available";
+    Status["NotAvailable"] = "not available";
+})(Status || (Status = {}));
+function isAvailable(availableAnimal) {
+    if (availableAnimal.status === Status.Available) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+function checkAnimalData(animal) {
+    if (isAvailable(animal)) {
+        // Заменить условие!
+        return animal.data;
+    }
+    else {
+        return "".concat(animal.data, ", you can try in ").concat(animal.data.nextUpdateIn);
+    }
+}
