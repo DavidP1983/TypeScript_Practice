@@ -72,15 +72,8 @@ export function logPerson(person: Person) {
     console.log(`${person.name}, ${person.age}, ${additionalInformation}`);
 }
 
-console.log('Admins:');
 persons.filter(isAdmin).forEach(logPerson);
 
-console.log();
+// persons.filter(isUser).forEach(logPerson);
 
-console.log('Users:');
-persons.filter(isUser).forEach(logPerson);
-
-console.log();
-
-console.log('Power users:');
-persons.filter(isPowerUser).forEach(logPerson);
+// persons.filter(isPowerUser).forEach(logPerson);
