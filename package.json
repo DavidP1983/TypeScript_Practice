@@ -1,0 +1,23 @@
+{
+  "name": "ts_practice",
+  "version": "1.0.0",
+  "description": "> [!NOTE]\r > ### Using TS in practice\r > [![My Skills](https://skillicons.dev/icons?i=ts)](https://skillicons.dev)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidP1983/TypeScript_Practice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidP1983/TypeScript_Practice/issues"
+  },
+  "homepage": "https://github.com/DavidP1983/TypeScript_Practice#readme",
+  "devDependencies": {
+    "reflect-metadata": "^0.2.1",
+    "typescript": "^4.9.4"
+  }
+}
